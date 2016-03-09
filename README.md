@@ -7,5 +7,5 @@ Installation
 ------------
 As _root_ run:
 ```
-# bash < <(curl -skL https://github.com/raw/pymonger/puppet-scispark/master/install.sh)
+# bash < <(curl -skL https://raw.githubusercontent.com/pymonger/puppet-scispark/master/install.sh)
 ```
