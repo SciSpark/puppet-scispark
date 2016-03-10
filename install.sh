@@ -21,11 +21,13 @@ fi
 git_cmd=`which git`
 if [ $? -ne 0 ]; then
   yum -y install git
+  git_cmd=`which git`
 fi
 
 puppet_cmd=`which puppet`
 if [ $? -ne 0 ]; then
   yum -y install puppet
+  puppet_cmd=`which puppet`
 fi
 
 
