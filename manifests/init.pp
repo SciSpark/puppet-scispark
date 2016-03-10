@@ -115,8 +115,8 @@ class scispark {
   anaconda_install { "Anaconda2-2.5.0-Linux-x86_64.sh":
     install_dir => "/home/$user/anaconda",
     creates     => "/home/$user/anaconda/bin/python",
-    owner       => "sdeploy",
-    group       => "sdeploy",
+    owner       => $user,
+    group       => $group,
   }
 
 }
