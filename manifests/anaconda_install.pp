@@ -20,6 +20,7 @@ define scispark::anaconda_install($script=$title, $install_dir, $owner, $group, 
   exec { "chmod $script":
     path    => ["/bin", "/usr/bin"],
     command => "chmod 755 /tmp/$script",
+    refreshonly => true,
     notify  => Exec["run $script"],
   }
 
@@ -29,6 +30,13 @@ define scispark::anaconda_install($script=$title, $install_dir, $owner, $group, 
     path        => ["/bin", "/usr/bin", "/usr/sbin", "/sbin"],
     command     => "/tmp/$script -b -f -p $install_dir",
     refreshonly => true,
-    require     => [ Exec["chmod $script"], File["$install_dir"] ]
+    notify      => Exec["rm $script"],
+  }
+
+  # cleanup
+  exec { "rm $script":
+    path        => ["/bin", "/usr/bin", "/usr/sbin", "/sbin"],
+    command     => "rm -rf /tmp/$script",
+    refreshonly => true,
   }
 }
