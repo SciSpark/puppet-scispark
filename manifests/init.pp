@@ -117,6 +117,7 @@ class scispark {
     creates     => "/home/$user/anaconda/bin/python",
     owner       => $user,
     group       => $group,
+    require     => User[$user],
   }
 
 }

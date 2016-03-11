@@ -18,10 +18,10 @@ define scispark::anaconda_install($script=$title, $install_dir, $owner, $group, 
 
   # chmod the shell script
   exec { "chmod $script":
-    path    => ["/bin", "/usr/bin"],
-    command => "chmod 755 /tmp/$script",
+    path        => ["/bin", "/usr/bin"],
+    command     => "chmod 755 /tmp/$script",
     refreshonly => true,
-    notify  => Exec["run $script"],
+    notify      => Exec["run $script"],
   }
 
   # install anaconda at the desired location
@@ -30,6 +30,7 @@ define scispark::anaconda_install($script=$title, $install_dir, $owner, $group, 
     path        => ["/bin", "/usr/bin", "/usr/sbin", "/sbin"],
     command     => "/tmp/$script -b -f -p $install_dir",
     refreshonly => true,
+    require     => [ Exec["chmod $script"], File["$install_dir"] ],
     notify      => Exec["rm $script"],
   }
 
@@ -38,5 +39,6 @@ define scispark::anaconda_install($script=$title, $install_dir, $owner, $group, 
     path        => ["/bin", "/usr/bin", "/usr/sbin", "/sbin"],
     command     => "rm -rf /tmp/$script",
     refreshonly => true,
+    require     => Exec["run $script"],
   }
 }
